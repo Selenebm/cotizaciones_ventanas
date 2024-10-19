@@ -1,4 +1,3 @@
-# main.py
 from cliente import Cliente
 from ventana import Ventana
 from cotizacion import Cotizacion
@@ -31,12 +30,12 @@ def crear_cotizacion():
         esmerilado = input("¿Esmerilado (S/N)? ").lower() == 's'
         
         # Crear objeto Ventana
-        ventana = Ventana(estilo, ancho, alto, acabado, tipo_vidrio, esmerilado)
+        ventana = Ventana(estilo= estilo, ancho=ancho, alto=alto, acabado=acabado, tipo_vidrio=tipo_vidrio, cantidad=1, esmerilado= esmerilado)
         ventanas.append(ventana)
 
     # Crear cotización
     cotizacion = Cotizacion(cliente, ventanas)
-    cotizacion.calcular_total()
-
+    precio_total = cotizacion.calcular_total()
+    print(precio_total)
 # Ejecutar el programa
 crear_cotizacion()

@@ -7,10 +7,10 @@ class Cotizacion:
         self.numero_de_cotizacion = f"COT-{self.fecha.strftime('%Y%m%d%H%M%S')}"
         self.descuento = 0.10 if len(ventanas) > 100 else 0  # Descuento si aplica
 
-    def calcular_total(self) -> float:
+    def calcular_total(self):
         costo_total = 0
         for ventana in self.ventanas:
-            costo_total += ventana.calcular_costo_total()
+            costo_total += ventana.calcular_precio_total()
 
         if self.descuento > 0:
             costo_total *= (1 - self.descuento)
