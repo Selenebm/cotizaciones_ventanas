@@ -26,7 +26,7 @@ class TestVentana:
 
     def test_calcular_costo_vidrio_esmerilado(self):
         ventana = Ventana(estilo="O", ancho=12, alto=15, acabado="Pulido", tipo_vidrio="Transparente", esmerilado=True)
-        assert ventana.calcular_costo_vidrio() == 561.6  # 108cm² * $8.25 + 108cm² * $5.20
+        assert ventana.calcular_costo_vidrio() == 1452.6  # 108cm² * $8.25 + 108cm² * $5.20
 
     def test_calcular_costo_esquinas(self):
         ventana = Ventana(estilo="O", ancho=12, alto=15, acabado="Pulido", tipo_vidrio="Transparente")
