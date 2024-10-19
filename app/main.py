@@ -6,11 +6,27 @@ from rich.prompt import Prompt
 from rich import print
 from rich.panel import Panel
 from rich.table import Table
+from rich.text import Text
+from rich.layout import Layout
+from rich.align import Align
 
 console = Console()
 
 def crear_cotizacion():
-    console.print(Panel("[bold green]Creación de Cotización[/bold green]"))
+    # Cabecera estilizada
+    header_text = Text("Sistema de Cotización", style="bold white on blue", justify="center")
+    console.print(Panel(header_text, border_style="bold blue", padding=(1, 1)))
+
+    # Crear layout
+    layout = Layout()
+    layout.split(
+        Layout(name="header", size=3),
+        Layout(name="body", ratio=1),
+        Layout(name="footer", size=3)
+    )
+
+    # Panel de creación de cotización
+    layout["header"].update(Panel("[bold green]Creación de Cotización[/bold green]", title="Inicio", border_style="green"))
 
     # Preguntar si es empresa o persona natural
     es_empresa = Prompt.ask("[bold yellow]¿El cliente es una empresa?[/bold yellow]", choices=["S", "N"]).lower() == 's'
@@ -31,7 +47,7 @@ def crear_cotizacion():
     # Crear lista de ventanas
     ventanas = []
     for i in range(1, cantidad_ventanas + 1):
-        console.print(f"[bold cyan]Ventana {i}[/bold cyan]")
+        console.print(Panel(f"[bold cyan]Configuración Ventana {i}[/bold cyan]", border_style="cyan"))
         estilo = Prompt.ask("[bold blue]Ingrese el estilo de la ventana[/bold blue]", choices=["O", "XO", "OXXO", "OXO"])
         ancho = float(Prompt.ask("[bold yellow]Ingrese el ancho de la ventana (cm)[/bold yellow]"))
         alto = float(Prompt.ask("[bold green]Ingrese el alto de la ventana (cm)[/bold green]"))

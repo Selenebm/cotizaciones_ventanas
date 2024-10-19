@@ -76,8 +76,3 @@ class Ventana:
             self.calcular_costo_chapa()
         ) * self.cantidad
 
-# Ejemplo de uso
-"""
-ventana = Ventana(estilo="O", ancho=12, alto=15, tipo_vidrio="Transparente", acabado="Pulido", cantidad=1, esmerilado=False)
-costo_total = ventana.calcular_precio_total()
-print(f"Costo total: ${costo_total:.2f}")"""
