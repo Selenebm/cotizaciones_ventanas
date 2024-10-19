@@ -4,14 +4,21 @@ from ventana import Ventana
 from cotizacion import Cotizacion
 
 def crear_cotizacion():
+    # Preguntar si es empresa o persona natural
+    es_empresa = input("¿El cliente es una empresa (S/N)? ").lower() == 's'
+    
     # Pedir datos del cliente
     nombre_cliente = input("Ingrese el nombre del cliente: ")
-    empresa_cliente = input("Ingrese el nombre de la empresa: ")
+    
+    empresa_cliente = None
+    if es_empresa:
+        empresa_cliente = input("Ingrese el nombre de la empresa: ")
+    
     direccion_contacto = input("Ingrese la dirección de contacto: ")
     cantidad_ventanas = int(input("Ingrese la cantidad de ventanas: "))
     
     # Crear cliente
-    cliente = Cliente(nombre_cliente, empresa_cliente, direccion_contacto, cantidad_ventanas)
+    cliente = Cliente(nombre_cliente, es_empresa, empresa_cliente, direccion_contacto, cantidad_ventanas)
 
     # Crear lista de ventanas
     ventanas = []

@@ -1,5 +1,4 @@
 from datetime import datetime
-
 class Cotizacion:
     def __init__(self, cliente, ventanas):
         self.cliente = cliente
@@ -17,7 +16,8 @@ class Cotizacion:
             costo_total *= (1 - self.descuento)
 
         print(f"Nombre del cliente: {self.cliente.nombre}")
-        print(f"Empresa: {self.cliente.empresa}")
+        if self.cliente.es_empresa:
+            print(f"Empresa: {self.cliente.empresa}")
         print(f"Dirección de contacto: {self.cliente.direccion_contacto}")
         print(f"Fecha de cotización: {self.fecha.strftime('%d-%m-%Y')}")
         print(f"Número de cotización: {self.numero_de_cotizacion}")

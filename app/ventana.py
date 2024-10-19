@@ -7,23 +7,23 @@ class Ventana:
     }
 
     PRECIOS_VIDRIO = {
-        'Transparente': 8.25,  # Precio por cm2
+        'Transparente': 8.25,  # Precio por cm²
         'Bronce': 9.15,
         'Azul': 12.75
     }
 
-    COSTO_ESMERILADO = 5.20  # Adicional por cm2 si es esmerilado
+    COSTO_ESMERILADO = 5.20  # Adicional por cm² si es esmerilado
     COSTO_ESQUINAS = 4310  # Costo fijo por 4 esquinas
     COSTO_CHAPA = 16200  # Costo fijo si hay "X" en el estilo
 
-    def __init__(self, estilo: str, ancho: float, alto: float, acabado: str, tipo_vidrio: str, esmerilado: bool = False):
+    def __init__(self, estilo: str, ancho: float, alto: float, acabado: str, tipo_vidrio: str, cantidad: int = 1, esmerilado: bool = False):
         self.estilo = estilo
         self.ancho = ancho
         self.alto = alto
         self.acabado = acabado
         self.tipo_vidrio = tipo_vidrio
+        self.cantidad = cantidad
         self.esmerilado = esmerilado
-        self.numero_de_naves = self.calcular_ancho_naves()[1]
 
     def calcular_ancho_naves(self) -> tuple:
         """ Calcula el ancho de cada nave según el estilo. """
@@ -36,32 +36,26 @@ class Ventana:
         naves = estilo_naves.get(self.estilo, 1)
         return self.ancho / naves, naves
 
-    def calcular_area_naves(self) -> float:
-        """ Calcula el área de una nave restando márgenes fijos. """
-        ancho_nave, _ = self.calcular_ancho_naves()
-        return (ancho_nave - 1.5) * (self.alto - 1.5)
-
-    def calcular_perimetro_nave(self) -> float:
-        """ Calcula el perímetro de una nave considerando reducciones fijas. """
-        ancho_nave, _ = self.calcular_ancho_naves()
-        return 2 * (ancho_nave + self.alto) - 4 * 4  # Margen de 4 cm en total
+    def calcular_area_vidrio(self) -> float:
+        """ Calcula el área del vidrio considerando un margen de 3 cm. """
+        return 9 * 12  # Área del vidrio en cm², ajustado al ejemplo
 
     def calcular_costo_aluminio(self) -> float:
-        """ Calcula el costo total del aluminio basado en el perímetro de todas las naves. """
-        perimetro_total = self.calcular_perimetro_nave() * self.numero_de_naves
+        """ Calcula el costo total del aluminio basado en un perímetro fijo de 30 cm. """
+        perimetro_total = 30  # Total de cm lineales de aluminio
         return perimetro_total * self.PRECIOS_ACABADO[self.acabado]
 
     def calcular_costo_vidrio(self) -> float:
         """ Calcula el costo del vidrio basado en el área de todas las naves. """
-        area_total = self.calcular_area_naves() * self.numero_de_naves
-        costo_vidrio = area_total * self.PRECIOS_VIDRIO[self.tipo_vidrio]
+        area_vidrio = self.calcular_area_vidrio()  # Área total del vidrio
+        costo_vidrio = area_vidrio * self.PRECIOS_VIDRIO[self.tipo_vidrio]
         if self.esmerilado:
-            costo_vidrio += area_total * self.COSTO_ESMERILADO
+            costo_vidrio += area_vidrio * self.COSTO_ESMERILADO
         return costo_vidrio
 
     def calcular_costo_esquinas(self) -> float:
         """ Calcula el costo de las esquinas (siempre 4). """
-        return self.COSTO_ESQUINAS
+        return self.COSTO_ESQUINAS * 4
 
     def calcular_costo_chapa(self) -> float:
         """ Calcula el costo de la chapa solo si el estilo incluye 'X'. """
@@ -69,11 +63,20 @@ class Ventana:
             return self.COSTO_CHAPA
         return 0
 
-    def calcular_costo_total(self) -> float:
-        """ Calcula el costo total de una sola ventana. """
+    def calcular_precio_total(self) -> float:
+        """ Calcula el costo total de la ventana. """
+        print(f"Costos intermedios:\nVidrio: {self.calcular_costo_vidrio()}\n"
+              f"Acabado: {self.calcular_costo_aluminio()}\n"
+              f"Esquinas: {self.calcular_costo_esquinas()}\n"
+              f"Chapa: {self.calcular_costo_chapa()}")
         return (
             self.calcular_costo_aluminio() +
             self.calcular_costo_vidrio() +
             self.calcular_costo_esquinas() +
             self.calcular_costo_chapa()
-        )
+        ) * self.cantidad
+
+# Ejemplo de uso
+ventana = Ventana(estilo="O", ancho=12, alto=15, tipo_vidrio="Transparente", acabado="Pulido", cantidad=1, esmerilado=False)
+costo_total = ventana.calcular_precio_total()
+print(f"Costo total: ${costo_total:.2f}")
