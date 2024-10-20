@@ -25,8 +25,15 @@ class Ventana:
         self.cantidad = cantidad
         self.esmerilado = esmerilado
 
+    @classmethod
+    def agregar_nuevo_acabado(cls, nombre_acabado, precio):
+        cls.PRECIOS_ACABADO[nombre_acabado] = precio / 100  # Precio por cm lineal
+
+    @classmethod
+    def agregar_nuevo_vidrio(cls, nombre_vidrio, precio):
+        cls.PRECIOS_VIDRIO[nombre_vidrio] = precio  # Precio por cm²
+
     def calcular_ancho_naves(self) -> tuple:
-        """ Calcula el ancho de cada nave según el estilo. """
         estilo_naves = {
             "O": 1,
             "XO": 2,
@@ -37,9 +44,8 @@ class Ventana:
         return self.ancho / naves, naves
 
     def calcular_area_vidrio(self) -> float:
-        """ Calcula el área del vidrio considerando un margen de 3 cm. """
         ancho, _ = self.calcular_ancho_naves()
-        return (ancho - 3) * (self.alto - 3)  
+        return (ancho - 3) * (self.alto - 3)
 
     def calcular_perimetro_nave(self):
         ancho, _ = self.calcular_ancho_naves()
@@ -50,8 +56,7 @@ class Ventana:
         return area_total * self.PRECIOS_ACABADO[self.acabado]
 
     def calcular_costo_vidrio(self) -> float:
-        """ Calcula el costo del vidrio basado en el área de todas las naves. """
-        area_vidrio = self.calcular_area_vidrio()  * self.calcular_ancho_naves()[1]# Área total del vidrio
+        area_vidrio = self.calcular_area_vidrio() * self.calcular_ancho_naves()[1]  # Área total del vidrio
         costo_vidrio = area_vidrio * self.PRECIOS_VIDRIO[self.tipo_vidrio]
         if self.esmerilado:
             costo_vidrio += area_vidrio * self.COSTO_ESMERILADO
@@ -68,15 +73,9 @@ class Ventana:
         return 0
 
     def calcular_precio_total(self) -> float:
-        """ Calcula el costo total de la ventana. 
-        print(f"Costos intermedios:\nVidrio: {self.calcular_costo_vidrio()}\n"
-              f"Acabado: {self.calcular_costo_aluminio()}\n"
-              f"Esquinas: {self.calcular_costo_esquinas()}\n"
-              f"Chapa: {self.calcular_costo_chapa()}")"""
         return (
             self.calcular_costo_aluminio() +
             self.calcular_costo_vidrio() +
             self.calcular_costo_esquinas() +
             self.calcular_costo_chapa()
         ) * self.cantidad
-
