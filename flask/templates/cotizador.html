@@ -5,22 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cotización de Ventanas</title>
     
-    <!-- Estilos CSS integrados -->
     <style>
-        /* Paleta de colores lilas, morados, azules y verdes */
         :root {
-            --primary-color: #7e57c2; /* Lila */
-            --secondary-color: #b39ddb; /* Lila más claro */
-            --accent-color: #512da8; /* Morado profundo */
-            --highlight-color: #3949ab; /* Azul */
-            --green-color: #4caf50; /* Verde claro */
-            --dark-green-color: #388e3c; /* Verde oscuro */
-            --blue-button-color: #3949ab; /* Azul para otros botones */
-            --background-color: #f3e5f5; /* Fondo suave */
-            --text-color: #4a148c; /* Texto morado oscuro */
+            --primary-color: #7e57c2; 
+            --secondary-color: #b39ddb; 
+            --accent-color: #512da8; 
+            --highlight-color: #3949ab; 
+            --green-color: #4caf50; 
+            --dark-green-color: #388e3c; 
+            --blue-button-color: #3949ab; 
+            --background-color: #f3e5f5; 
+            --text-color: #4a148c; 
         }
-
-        /* General styles for the body */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--background-color);
@@ -32,18 +28,12 @@
             min-height: 100vh;
         }
 
-        /* Contenedor del formulario y del resultado */
         .container {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            width: 100%;
-            max-width: 800px;
-            padding: 20px;
-        }
 
-        /* Contenedor principal del formulario */
         form {
             background-color: white;
             padding: 30px;
@@ -54,7 +44,6 @@
             text-align: center;
         }
 
-        /* Estilo de los encabezados */
         h1, h2 {
             text-align: center;
             color: var(--primary-color);
@@ -69,7 +58,6 @@
             color: var(--text-color);
         }
 
-        /* Espacio entre los elementos del formulario */
         label {
             display: block;
             margin-bottom: 8px;
@@ -94,7 +82,6 @@
             outline: none;
         }
 
-        /* Estilo del botón de "Calcular" (verde) */
         input[type="submit"] {
             background-color: var(--green-color);
             color: white;
@@ -110,7 +97,6 @@
             background-color: var(--dark-green-color);
         }
 
-        /* Botón para "Agregar otra ventana" (tono azul) */
         button {
             background-color: var(--blue-button-color);
             color: white;
@@ -127,7 +113,6 @@
             background-color: var(--accent-color);
         }
 
-        /* Diseño para las ventanas adicionales */
         .ventana {
             background-color: var(--secondary-color);
             padding: 15px;
@@ -135,7 +120,6 @@
             border-radius: 8px;
         }
 
-        /* Contenedor del resultado */
         .resultado {
             background-color: var(--highlight-color);
             color: white;
@@ -169,7 +153,6 @@
             color: #fff;
         }
 
-        /* Responsive: Ajustes para pantallas pequeñas */
         @media (max-width: 600px) {
             form, .resultado {
                 padding: 20px;
