@@ -35,12 +35,16 @@ Sigue estos pasos para instalar y ejecutar el proyecto en tu máquina local:
 
 2. Navega al directorio del proyecto:
     ```bash
-    cd proyecto-cotizacion-ventanas
+    cd cotizacion_ventanas
     ```
 
 3. Asegúrate de tener Python instalado en tu sistema. Luego, ejecuta el script principal del proyecto:
     ```bash
     python main.py
+    ```
+    y en caso de flask:
+    ```bash
+    python app.py
     ```
 
 ¡Y eso es todo! Ahora puedes comenzar a cotizar ventanas usando el sistema.
