@@ -37,30 +37,33 @@ class Ventana:
         return self.ancho / naves, naves
 
     def calcular_area_vidrio(self) -> float:
-        """ Calcula el área del vidrio considerando un margen de 3 cm. """
-        return 9 * 12  # Área del vidrio en cm², ajustado al ejemplo
+        ancho, _ = self.calcular_ancho_naves()
+        return (ancho - 3) * (self.alto - 3)
 
-    def calcular_costo_aluminio(self) -> float:
-        """ Calcula el costo total del aluminio basado en un perímetro fijo de 30 cm. """
-        perimetro_total = 30  # Total de cm lineales de aluminio
-        return perimetro_total * self.PRECIOS_ACABADO[self.acabado]
+    def calcular_perimetro_nave(self):
+        ancho, _ = self.calcular_ancho_naves()
+        return 2 * ((ancho - 6) + (self.alto - 6))
+
+    def calcular_costo_aluminio(self):
+        area_total = self.calcular_perimetro_nave() * self.calcular_ancho_naves()[1]
+        return area_total * self.PRECIOS_ACABADO[self.acabado]
 
     def calcular_costo_vidrio(self) -> float:
         """ Calcula el costo del vidrio basado en el área de todas las naves. """
-        area_vidrio = self.calcular_area_vidrio()  # Área total del vidrio
+        area_vidrio = self.calcular_area_vidrio()  * self.calcular_ancho_naves()[1]# Área total del vidrio
         costo_vidrio = area_vidrio * self.PRECIOS_VIDRIO[self.tipo_vidrio]
         if self.esmerilado:
             costo_vidrio += area_vidrio * self.COSTO_ESMERILADO
         return costo_vidrio
 
     def calcular_costo_esquinas(self) -> float:
-        """ Calcula el costo de las esquinas (siempre 4). """
-        return self.COSTO_ESQUINAS * 4
+        naves_cant = len(self.estilo)
+        return (self.COSTO_ESQUINAS * 4) * naves_cant
 
     def calcular_costo_chapa(self) -> float:
-        """ Calcula el costo de la chapa solo si el estilo incluye 'X'. """
+        contador_x = self.estilo.count("X")
         if "X" in self.estilo:
-            return self.COSTO_CHAPA
+            return self.COSTO_CHAPA * contador_x
         return 0
 
     def calcular_precio_total(self) -> float:
